@@ -1,6 +1,6 @@
 const User = require('../model/User')
 const bcrypt = require('bcryptjs')
-const message = require('../utils/otpMessage');
+const optMessage = require('../utils/Message');
 const {generateToken} = require('../utils/authentication');
 const sendEmail = require('../utils/sendEmail');
 
@@ -21,7 +21,7 @@ const registerUser = async (req,res)=>{
         if(user){
             const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-            const mailMessage = message(name,otp);
+            const mailMessage = optMessage(name,otp);
             await sendEmail(email,'Welcome To ShopNest - Your OTP for Registration',mailMessage)
 
             return res.status(201).json({
